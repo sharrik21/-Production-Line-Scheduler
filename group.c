@@ -8,7 +8,7 @@ void runcmd(char command[],int count);
 int main(int argc,char *argv[]){
 
   char command[100];
-  printf("~~WELCOME TO PLS~~");
+  printf("~~WELCOME TO PLS~~\n\n");
   while(1){
     printf("Please enter:\n");
     scanf("%s",command);
