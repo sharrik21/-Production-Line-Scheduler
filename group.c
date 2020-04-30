@@ -11,7 +11,12 @@ long totalday(int year,int month,int day);
 void runcmd(char command[],int count);
 void addPEIOD(char arr[]);
 void addDate(char input[3][SIZE], int x, int start, int end, bool stDate);
-
+struct schedule{
+  char orderNum[10];
+  char dueDate[10];
+  int quantity;
+  char productName[100];
+}
 int main(int argc,char *argv[]){
   char command[100];
   printf("~~WELCOME TO PLS~~\n\n");
