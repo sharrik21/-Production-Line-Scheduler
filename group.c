@@ -4,19 +4,24 @@
 #include <time.h>
 #include <stdbool.h>
 
-int startDate[3], endDate[3];
+struct Schedule{
+    char orderNum[10];
+    char dueDate[11];
+    int quantity;
+    char productName[100];
+};
+
+int startDate[3], endDate[3], numOrders = 0;
+struct Schedule schedule[100];
 const int SIZE = 80;
 
 long totalday(int year,int month,int day);
 void runcmd(char command[],int count);
 void addPEIOD(char arr[]);
 void addDate(char input[3][SIZE], int x, int start, int end, bool stDate);
-struct schedule{
-  char orderNum[10];
-  char dueDate[10];
-  int quantity;
-  char productName[100];
-}
+void addORDER(char arr[]);
+//void addBATCH(char arr[]);
+
 int main(int argc,char *argv[]){
   char command[100];
   printf("~~WELCOME TO PLS~~\n\n");
@@ -38,7 +43,7 @@ int main(int argc,char *argv[]){
 long totalday(int year, int month, int day)
 {
   int months[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-  int i;
+  int i = 0;
   long total = 0L;
   total = (year - 1) * 365L + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
   if (!(year % 4) && year % 100 || !(year % 400))
@@ -55,16 +60,14 @@ void runcmd(char command[],int count){
     addPEIOD(command);
   }
   else{
-
     ptr=strstr(command,"addORDER");
     if(ptr != NULL){
-      //addORDER(ptr,count);
-      printf("addORDER");
+      addORDER(command); //count
     }
     else{
       ptr=strstr(command,"addBATCH");
       if(ptr != NULL){
-        //addBATCH(ptr,count);
+        //addBATCH(command);
         printf("addBATCH");
       }
       else{
@@ -114,3 +117,25 @@ void addPEIOD(char arr[]){
     addDate(input, 1, 5, 7, false);
     addDate(input, 2, 8, 10, false);
 }
+
+void addORDER(char arr[]){
+    strtok(arr, " ");
+    char * token = strtok(NULL, " ");
+
+    //token =
+    strcpy(schedule[numOrders].orderNum, token);
+
+    token = strtok(NULL, " ");
+    strcpy(schedule[numOrders].dueDate, token);
+
+    token = strtok(NULL, " ");
+    schedule[numOrders].quantity = atoi(token);
+
+    token = strtok(NULL, " ");
+    strcpy(schedule[numOrders].productName, token);
+
+    //printf("%s %s %d %s\n", schedule[numOrders].orderNum, schedule[numOrders].dueDate, schedule[numOrders].quantity, schedule[numOrders].productName);
+    numOrders++;
+}
+
+//void addBatch(char arr[]){}
