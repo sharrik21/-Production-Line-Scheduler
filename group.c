@@ -20,7 +20,7 @@ void runcmd(char command[],int count);
 void addPEIOD(char arr[]);
 void addDate(char input[3][SIZE], int x, int start, int end, bool stDate);
 void addORDER(char arr[]);
-//void addBATCH(char arr[]);
+void addBATCH(char arr[], int count);
 
 int main(int argc,char *argv[]){
   char command[100];
@@ -67,8 +67,7 @@ void runcmd(char command[],int count){
     else{
       ptr=strstr(command,"addBATCH");
       if(ptr != NULL){
-        //addBATCH(command);
-        printf("addBATCH");
+        addBATCH(command, count);
       }
       else{
         ptr=strstr(command,"runPLS");
@@ -122,7 +121,6 @@ void addORDER(char arr[]){
     strtok(arr, " ");
     char * token = strtok(NULL, " ");
 
-    //token =
     strcpy(schedule[numOrders].orderNum, token);
 
     token = strtok(NULL, " ");
@@ -138,4 +136,23 @@ void addORDER(char arr[]){
     numOrders++;
 }
 
-//void addBatch(char arr[]){}
+void addBATCH(char arr[], int count){
+    int i;
+    char a[100], buf[150], line[100] = "";
+    FILE *fp;
+    for (i = 9; i < count; i++) {
+        a[i-9] = arr[i];
+    }
+    a[i] = '\0';
+
+    strtok(arr, " ");
+    char * token = strtok(NULL, " ");
+
+    strcat(line, a);
+    char* filename = line;
+    fp = fopen(filename ,"r");
+    while(fgets(buf, 150, (FILE*)fp) != NULL){
+        addORDER(buf);
+    }
+    fclose(fp);
+}
